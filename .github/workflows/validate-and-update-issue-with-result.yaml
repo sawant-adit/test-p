@@ -46,6 +46,8 @@ jobs:
     outputs:
       passed: ${{ needs.parse-and-validate-issue-body.outputs.passed }}
     steps:
+      - uses: actions/checkout@v3
+
       - name: Adding Success Comment
         if: ${{ needs.parse-and-validate-issue-body.outputs.passed }}
         uses: peter-evans/create-or-update-comment@v3
