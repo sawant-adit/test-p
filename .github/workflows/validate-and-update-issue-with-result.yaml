@@ -24,6 +24,8 @@ jobs:
     outputs:
       passed: ${{ steps.check-cluster-name.outputs.passed }}
     steps:
+      - uses: actions/checkout@v3
+
       - uses: stefanbuck/github-issue-parser@v3
         name: Get Issue Body
         id: issue-parser
