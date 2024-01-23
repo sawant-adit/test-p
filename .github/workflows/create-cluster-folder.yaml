@@ -13,21 +13,9 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configuring Longhorn and ArgoCD
-        uses: ./.github/workflows/validate-and-update-issue-with-result.yaml
-        with:
-          ISSUE_BODY: ${{github.event.issue.body}}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-
-  run:
-    runs-on: ubuntu-latest
-    needs: [ validate ]
-    if: contains(github.event.issue.labels.*.name, 'Create-Rancher-Deployment') && needs.validate.outputs.passed
-    env:
-      TEMP_ISSUE_INFO_FILE: "issue-info.txt"
-    steps:
-      
-      - run: echo "${{github.event.issue.body}}" > "${{ env.TEMP_ISSUE_INFO_FILE }}"
+    - uses: ./.github/workflows/validate-and-update-issue-with-result.yaml
+      name: Configuring Longhorn and ArgoCD
+      with:
+        ISSUE_BODY: ${{github.event.issue.body}}
+        ISSUE_NUMBER: ${{ github.event.issue.number }}
       
