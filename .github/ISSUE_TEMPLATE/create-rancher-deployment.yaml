@@ -1,0 +1,43 @@
+name: create-rancher-deployment
+title: '[Rancher Deployment]: '
+description: Create a folder for the rancher deployment
+labels: ['Create-Rancher-Deployment']
+body:
+  - type: input
+    id: cluster-name
+    attributes:
+      label: Cluster name
+      description: The name for the cluster in kebab-case format.
+      placeholder: ex. example-cluster
+  - type: dropdown
+    id: enable-proxy-settings
+    attributes:
+      label: Enable Proxy settings
+      options:
+        - 'true'
+        - 'false'
+      default: 0
+  - type: input
+    id: http-proxy-url
+    attributes:
+      label: HTTP Proxy URL
+      description: The http proxy URL for the cluster.
+      value: http://umbrella.philips.com:80/
+  - type: input
+    id: https-proxy-url
+    attributes:
+      label: HTTPS Proxy URL
+      description: The https proxy URL for the cluster.
+      value: http://umbrella.philips.com:443/
+  - type: input
+    id: ca-cert
+    attributes:
+      label: CA Certificiate
+      description: The CA Certificate used by the proxy. The certificate must be based64 encoded.
+      value: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKakNDQWc2Z0F3SUJBZ0lJVVc2bDNrWWVWTUV3RFFZSktvWklodmNOQVFFTEJRQXdNVEVPTUF3R0ExVUUKQ2hNRlEybHpZMjh4SHpBZEJnTlZCQU1URmtOcGMyTnZJRlZ0WW5KbGJHeGhJRkp2YjNRZ1EwRXdIaGNOTVRZdwpOakk0TVRVek56VXpXaGNOTXpZd05qSTRNVFV6TnpVeldqQXhNUTR3REFZRFZRUUtFd1ZEYVhOamJ6RWZNQjBHCkExVUVBeE1XUTJselkyOGdWVzFpY21Wc2JHRWdVbTl2ZENCRFFUQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQUQKZ2dFUEFEQ0NBUW9DZ2dFQkFPN1pqZkJTQ2F6NUVNWVNpV1lvWGpIUFAvdzd4RlQ0YlhhODJsT1o5Q0pKWERRdwpiWnBCZG11cVg5VVdvNzY5TElBYVNVdmtZRWVacWNUc2pyeC83anVQS29PRXJoSlkwY1BLMTJMVTlQYkhYcUVkClhFU0lxQmpkT0M1b2lJRkhoVEFLdXVLUmxMN3JoUFlrWWhadGdkbGw0aDBGTElHK3hOc01WZnpKYjd6NjlYOFkKdkY5cjFkckxrZDdvUjJ4SHVSa1hnemVibEZWcEYrRFJGN1dYTmhMeTBCeTM4Wnh0Q2x4WVVTaXRkejUzVzBpYwptYWVsRzdFeUNWTlZ4QVJ4bjV3YWFwaFJ2a2kxaGt1cXFybTNKZGxWMTY1ekFPZFN6M0pLelJJU1FpbkNUUXVUCitSSy93MHFMc0RUeU9WTy9tRUlWV0xYdS9aMU50dVhnai9qaGVnY0NBd0VBQWFOQ01FQXdEZ1lEVlIwUEFRSC8KQkFRREFnRUdNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGRU56QU40a3VrQWFRRlFzZlh6VgpBRWlKREhDa01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQklFb2NlU1BaTG1vNXNMbWdEZlFBK0ZxNUJLenRMCnFnOGFBdlpkcmJkTUVLRUJyMVJEQjBPQWh1UGNhYVZ4Wmk2SGp5cWwxTjk5OVptcDhxSXcvbExUdDNWU1RtRWEKMjl1UGdqZE1HTGw5S3lmWmpBUmlBL1BQdlBkSFR3ZzdUTUpPZXQrdzdQNW5XYWJMTlc1NStXYy9KekNTRkUzMAorMEtkei9qb2p4bEEvOHQweFlMQ2RTMlVLN3pDNGt1QWJvakhMSkRiSVFPM0hlRVd3Vm1nNEZPODlBSFZ2QzRSClkrVjB0N1NhRXJhZHY2dFBHOURIWDdQTHdqUS9Yczk1TkdESUpUZUZ3Q1JxWVVsQnU5aVpqSXZLYmEwZTB0U1QKVnV5dzIrUDJIdVdhempCUGF3R3JiZnl3K3VPM0tPNFduTkdqTXV0Sko5MjBvOEI1TThnVzErWWUKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQ==
+  - type: input
+    id: no-proxy-url
+    attributes:
+      label: No Proxy URL
+      description: The no proxy URL for the cluster.
+      value: .rndnest.philips.com,161.0.0.0/8

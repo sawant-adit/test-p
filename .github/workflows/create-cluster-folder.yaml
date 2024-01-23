@@ -1,0 +1,43 @@
+name: create-customer-rancher-deployment
+on:
+  issues:
+    branches:
+      - master
+      - main
+    types: [opened]
+
+permissions:
+  pull-requests: write
+  contents: write
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configuring Longhorn and ArgoCD
+        uses: ./.github/workflows/validate-and-update-issue-with-result.yaml
+        with:
+          ISSUE_BODY: ${{github.event.issue.body}}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+  run:
+    if: contains(github.event.issue.labels.*.name, 'Create-Rancher-Deployment') && 
+    runs-on: [self-hosted, linux, x64, philips-code-hub, ubuntu-latest]
+    env:
+      TEMP_ISSUE_INFO_FILE: "issue-info.txt"
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "${{github.event.issue.body}}" > "${{ env.TEMP_ISSUE_INFO_FILE }}"
+      - uses: philips-internal/hpm-acpmp-deploy-customer-onboarding@1.9
+        with:
+          IssueBodyFile: "${{ env.TEMP_ISSUE_INFO_FILE }}"
+          Token: "${{ secrets.GITHUB_TOKEN }}"
+          TargetFolder: fleet/{Cluster name}
+          InputsToStringsToReplace: '{"Cluster name": "<CLUSTER_NAME_REPLACE_ME>", "Enable Proxy settings": "<ENABLE_PROXY_SETTINGS_REPLACE_ME>", "CA Certificiate": "<CA_CERT_REPLACE_ME>", "HTTP Proxy URL": "<HTTP_PROXY_URL_REPLACE_ME>", "HTTPS Proxy URL": "<HTTPS_PROXY_URL_REPLACE_ME>", "No Proxy URL": "<NO_PROXY_URL_REPLACE_ME>"}'
+          TemplateFolder: doc/cluster-deployment-folder-dockerhub
+          TemplateDestination: fleet/{Cluster name}
+          CreatePullRequest: true
+          PullRequestName: "Create new rancher deployment: {Cluster name}"
+          PullRequestBody: "Create Rancher deployment for: {Cluster name}, resolves #{issueNumber}"
+          BranchNameFormat: create-rancher-deployment-{Cluster name}
