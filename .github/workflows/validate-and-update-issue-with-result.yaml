@@ -19,11 +19,13 @@ permissions:
 
 jobs:
   parse-issue-body:
-    uses: stefanbuck/github-issue-parser@v3
-    name: Get Issue Body
-    with:
-      template-path: .github/ISSUE_TEMPLATE/create-rancher-deployment.yaml
-      issue-body: ${{ inputs.ISSUE_BODY }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: stefanbuck/github-issue-parser@v3
+      name: Get Issue Body
+      with:
+        template-path: .github/ISSUE_TEMPLATE/create-rancher-deployment.yaml
+        issue-body: ${{ inputs.ISSUE_BODY }}
   
   parse-and-validate-issue-body:
     name: Parse and validate the issue body
