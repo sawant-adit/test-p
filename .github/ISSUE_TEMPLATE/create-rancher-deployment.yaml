@@ -9,6 +9,7 @@ body:
       label: Cluster name
       description: The name for the cluster in kebab-case format.
       placeholder: ex. example-cluster
+      pattern: [a-z]
   - type: dropdown
     id: enable-proxy-settings
     attributes:
