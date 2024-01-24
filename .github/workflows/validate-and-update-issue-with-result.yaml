@@ -18,21 +18,19 @@ permissions:
   issues: write
 
 jobs:
+  parse-issue-body:
+    uses: stefanbuck/github-issue-parser@v3
+    name: Get Issue Body
+    with:
+      template-path: .github/ISSUE_TEMPLATE/create-rancher-deployment.yaml
+      issue-body: ${{ inputs.ISSUE_BODY }}
+  
   parse-and-validate-issue-body:
     name: Parse and validate the issue body
     runs-on: ubuntu-latest
     outputs:
       passed: ${{ steps.check-cluster-name.outputs.passed }}
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: stefanbuck/github-issue-parser@v3
-        name: Get Issue Body
-        id: issue-parser
-        with:
-          template-path: .github/ISSUE_TEMPLATE/create-rancher-deployment.yaml
-          issue-body: ${{ inputs.ISSUE_BODY }}
-
       - name: Validate the cluster name 
         id: check-cluster-name
         run: |
